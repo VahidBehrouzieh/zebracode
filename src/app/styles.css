@@ -1,0 +1,72 @@
+@import "tailwindcss/preflight";
+@tailwind utilities;
+@tailwind utilities;
+
+
+
+/* globals.css */
+
+/* CodeMirror هنگام فوکوس، کلاس .cm-focused را به المان اصلی ویرایشگر اضافه می‌کند.
+   برای حذف کامل Outline در هر دو تم، این استایل را اعمال کنید.
+*/
+.cm-editor.cm-focused {
+    /* 1. حذف خط دور (outline)
+      (این Outline معمولاً توسط مرورگر برای Accessibility اضافه می‌شود)
+    */
+    outline: none !important;
+
+    /* 2. حذف Shadow/Border هنگام فوکوس (اگر از پلاگین‌ها یا تم‌های پیش‌فرض آمده باشد)
+    */
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+/* اگر از @uiw/react-codemirror استفاده می‌کنید،
+   گاهی نیاز است یک استایل اضافی روی div اصلی CodeMirror اعمال شود.
+*/
+.cm-editor:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+}
+/* app/globals.css یا فایل استایل اصلی شما */
+
+/* 🚀 استایل‌های قاطع برای تم روشن (light mode) */
+/* CodeMirror کلاس .cm-light یا .cm-theme-light را به ویرایشگر اضافه می‌کند */
+.cm-editor.cm-light, .cm-editor.cm-theme-light {
+    /* پس زمینه و متن اصلی */
+    background-color: #ffffff !important;
+    color: #000000 !important;
+
+    /* گاتر (شماره خط) */
+    .cm-gutters {
+        background-color: #ffffff !important;
+        color: #888888 !important;
+        border-right: none !important;
+    }
+    .cm-focused{
+        outline: unset!important;
+    }
+
+    /* خط فعال و انتخاب */
+    .cm-activeLine { background-color: #f0f0f0 !important; }
+    .cm-selectionBackground { background-color: #d1d5db !important; }
+}
+
+/* 🚀 استایل‌های قاطع برای تم تیره (dark mode) */
+/* CodeMirror کلاس .cm-dark یا .cm-theme-dark را به ویرایشگر اضافه می‌کند */
+.dark .cm-editor.cm-dark, .cm-editor.cm-theme-dark {
+    /* پس زمینه و متن اصلی */
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+
+    /* گاتر (شماره خط) */
+    .cm-gutters {
+        background-color: #1e1e1e !important;
+        color: #808080 !important;
+        border-right: none !important;
+    }
+
+    /* خط فعال و انتخاب */
+    .cm-activeLine { background-color: #262626 !important; }
+    .cm-selectionBackground { background-color: #304259 !important; }
+}

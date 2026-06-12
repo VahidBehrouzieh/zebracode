@@ -1,0 +1,39 @@
+# ZebraCode - Free Online Developer Tools
+> ZebraCode provides a collection of free, browser-based utilities for converting, formatting, and generating data. All tools process data locally.
+
+## JSON Tools
+- JSON Format: /json-format
+- JSON to TypeScript: /json-to-typescript
+- JSON to Go: /json-to-go
+- JSON to Rust: /json-to-rust-serde
+- JSON to Kotlin: /json-to-kotlin
+- JSON to Java: /json-to-java
+- JSON to YAML: /json-to-yaml
+- JSON to TOML: /json-to-toml
+- JSON to XML: (available via /xml-to-json reverse)
+- JSON to CSV: /json-to-csv
+- JSON to Zod: /json-to-zod
+
+## CSS Tools
+- CSS to JS: /css-to-js
+- CSS to SCSS: /css-to-scss
+- CSS to Tailwind: /css-to-tailwind
+- SCSS to CSS: /scss-to-css
+
+## GraphQL Tools
+- GraphQL to TypeScript: /graphql-to-typescript
+- GraphQL to Flow: /graphql-to-flow
+- GraphQL to Java: /graphql-to-java
+- GraphQL to MongoDB: /graphql-to-typescript-mongodb
+
+## Generators
+- Password Generator: /password-generator
+- Lorem Ipsum Generator: /lorem-generator
+
+## Text Tools
+- Text Diff Checker: /text-diff
+- Markdown to HTML: /markdown-to-html
+
+## Other Tools
+- Base64 Decode: /base64-decode
+- JWT Decoder: /jwt-decoder
