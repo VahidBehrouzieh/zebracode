@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import { Maximize, Minimize, Table, CheckCircle, Play } from 'lucide-react';
 import CodeMirrorEditorComponent from '@/components/CodeMirrorEditorComponent';
 import { ToolMeta } from '@/types/types';
+import SeoContent from "../pages/SeoContent";
 
 type CodeMirrorLanguage = 'json' | 'javascript' | 'html' | 'sql' | 'markdown' | 'text';
 

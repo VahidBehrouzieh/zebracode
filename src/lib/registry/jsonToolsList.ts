@@ -29,7 +29,7 @@ import {ToolMeta} from "@/types/types";
 export const JsonToolsList: Record<string, ToolMeta> = {
     // --------------------- JSON tools ---------------------
     formatJSON: {
-        type: 'formatJSON',
+        type: 'json-format',
         category: 'converters',
         subCategory: 'json',
         title: 'JSON Format',
