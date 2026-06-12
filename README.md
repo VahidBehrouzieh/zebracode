@@ -1,3 +1,10 @@
+<div align="center">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
+</div>
+
 # ZebraCode – Free Online Developer Tools
 
 A collection of 70+ free, client-side developer tools: JSON converters, CSS/SCSS, GraphQL, date/time utilities, encoders, and more. All tools run locally in your browser. No sign-up required.
