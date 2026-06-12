@@ -23,7 +23,7 @@ A collection of 70+ free, client-side developer tools: JSON converters, CSS/SCSS
 
 ### Installation
 ```bash
-git clone https://github.com/YOUR_USERNAME/zebracode.git
+git clone https://github.com/VahidBehrouzieh/zebracode.git
 cd zebracode
 npm install
 npm run dev
