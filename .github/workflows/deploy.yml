@@ -1,0 +1,36 @@
+name: Build and Deploy via FTP
+
+on:
+  push:
+    branches: [ main ]    # فقط وقتی روی main پوش بشه، اجرا بشه
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'       # کش کردن پکیج‌ها برای سرعت‌بیشتر
+
+      - name: 📦 Install dependencies
+        run: npm ci          # از package-lock.json استفاده می‌کنه، سریع و مطمئن
+
+      - name: 🏗️ Build static export
+        run: npm run build   # خروجی نهایی توی out/ ساخته می‌شه
+
+      - name: 🚀 Deploy to server via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./main/                     # پوشه‌ای که می‌خوایم آپلود بشه
+          server-dir: /public_html/             # مسیر روی هاست (دقیقاً پوشهٔ اصلی سایت)
+          dangerous-clean-slate: true           # فایل‌های اضافی روی سرور رو پاک می‌کنه
+          # protocol: ftps                      # اگر هاستت FTPS پشتیبانی می‌کنه، این خط رو فعال کن
