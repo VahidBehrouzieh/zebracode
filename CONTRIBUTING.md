@@ -5,7 +5,7 @@ First off, thank you for considering contributing to ZebraCode! 🦓
 ## How Can I Contribute?
 
 ### Reporting Bugs
-- Check if the bug is already reported in [Issues](https://github.com/YOUR_USERNAME/zebracode/issues).
+- Check if the bug is already reported in [Issues](https://github.com/VahidBehrouzieh/zebracode/issues).
 - If not, create a new issue using the **Bug Report** template. Include steps to reproduce, expected behavior, and screenshots if possible.
 
 ### Suggesting Enhancements or New Tools
