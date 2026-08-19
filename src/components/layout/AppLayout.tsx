@@ -70,7 +70,11 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
     const getValidPath = (itemPath: string) => {
         let cleanPath = itemPath || '';
         if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
-        return `${BASE_URL}${cleanPath}`;
+        
+        // اضافه کردن پیشوند /en اگر زبان انگلیسی است
+        const langPrefix = locale === 'en' ? '/en' : '';
+        
+        return `${BASE_URL || ''}${langPrefix}${cleanPath}`;
     };
 
     useEffect(() => {
@@ -148,6 +152,10 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
         };
     }, [handleMouseMove, handleMouseUp]);
 
+    const toggleLangPath = locale === 'en' 
+        ? pathname.replace(/^\/en/, '') || '/' 
+        : `/en${pathname === '/' ? '' : pathname}`;
+
     return (
         <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-900 overflow-hidden font-sans">
             <CommandMenu isOpen={isCommandOpen} setIsOpen={setIsCommandOpen} locale={locale} />
@@ -160,15 +168,15 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                             <Menu className="w-6 h-6" />
                         </button>
                     )}
-                    <Link href="/" className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                    <Link href={locale === 'en' ? '/en' : '/'} className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
                         ZebraCode
                     </Link>
                     <nav className="hidden lg:flex items-center gap-6 ml-6">
-                        <Link href="/" className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            Home Page
+                        <Link href={locale === 'en' ? '/en' : '/'} className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            {locale === 'en' ? 'Home' : 'خانه'}
                         </Link>
-                        <Link href="/about" className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            About Us
+                        <Link href={locale === 'en' ? '/en/about' : '/about'} className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            {locale === 'en' ? 'About Us' : 'درباره ما'}
                         </Link>
                     </nav>
                 </div>
@@ -178,6 +186,21 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                         <Search className="w-5 h-5" />
                     </button>
                     <div className="flex items-center gap-2 border-l rtl:border-r rtl:border-l-0 pl-3 rtl:pr-3 rtl:pl-0 border-gray-200 dark:border-gray-700">
+            
+                        {/* دکمه تغییر زبان */}
+                        <Link 
+                            href={toggleLangPath}
+                            onClick={() => {
+                                // ذخیره زبان در مرورگر کاربر هنگام کلیک
+                                localStorage.setItem('zebracode-lang', locale === 'en' ? 'fa' : 'en');
+                            }}
+                            className="flex items-center justify-center px-2 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 bg-gray-100/50 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors"
+                            title={locale === 'en' ? 'تغییر زبان به فارسی' : 'Switch to English'}
+                        >
+                            {locale === 'en' ? 'FA' : 'EN'}
+                        </Link>
+
+                        {/* دکمه تغییر تم (کد قبلی شما) */}
                         <button onClick={toggleTheme} className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors">
                             <Sun className="w-4 h-4 dark:hidden" />
                             <Moon className="w-4 h-4 hidden dark:block" />
