@@ -13,6 +13,9 @@ import { AllToolsList } from '@/lib/registry';
 import { ToolMeta } from '@/types/types';
 import renderIcon from '@/components/layout/renderIcon';
 import {BASE_URL} from "@/lib/env";
+import { I18nProvider } from "@/i18n/I18nProvider";
+import type { Dictionary, Locale } from "@/i18n/getDictionary";
+import { localizeCategory, localizeTool } from "@/i18n/localize";
 
 const MIN_SIDEBAR_WIDTH = 240;
 const MAX_SIDEBAR_WIDTH = 480;
@@ -49,7 +52,7 @@ const getGroupedTools = (tools: ToolMeta[]): GroupedCategory[] => {
     }));
 };
 
-export default function AppLayout({ children, locale }: { children: React.ReactNode, locale: string }) {
+export default function AppLayout({ children, locale, dict }: { children: React.ReactNode, locale: Locale, dict: Dictionary }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isCommandOpen, setIsCommandOpen] = useState(false);
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
@@ -157,8 +160,9 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
         : `/en${pathname === '/' ? '' : pathname}`;
 
     return (
+        <I18nProvider locale={locale} dict={dict}>
         <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-900 overflow-hidden font-sans">
-            <CommandMenu isOpen={isCommandOpen} setIsOpen={setIsCommandOpen} locale={locale} />
+            <CommandMenu isOpen={isCommandOpen} setIsOpen={setIsCommandOpen} locale={locale} dict={dict} />
 
             {/* هدر اصلی */}
             <header className="flex items-center justify-between h-16 px-4 lg:px-8 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 z-20 shrink-0">
@@ -173,10 +177,10 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                     </Link>
                     <nav className="hidden lg:flex items-center gap-6 ml-6">
                         <Link href={locale === 'en' ? '/en' : '/'} className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            {locale === 'en' ? 'Home' : 'خانه'}
+                            {dict.layout.home}
                         </Link>
                         <Link href={locale === 'en' ? '/en/about' : '/about'} className="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            {locale === 'en' ? 'About Us' : 'درباره ما'}
+                            {dict.layout.about}
                         </Link>
                     </nav>
                 </div>
@@ -195,9 +199,9 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                                 localStorage.setItem('zebracode-lang', locale === 'en' ? 'fa' : 'en');
                             }}
                             className="flex items-center justify-center px-2 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 bg-gray-100/50 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors"
-                            title={locale === 'en' ? 'تغییر زبان به فارسی' : 'Switch to English'}
+                            title={dict.layout.switchLanguage}
                         >
-                            {locale === 'en' ? 'FA' : 'EN'}
+                            {dict.layout.langCode}
                         </Link>
 
                         {/* دکمه تغییر تم (کد قبلی شما) */}
@@ -224,7 +228,7 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                                     onClick={() => setIsCommandOpen(true)}
                                     className="w-full flex items-center justify-between px-3 py-2 text-sm text-gray-500 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
                                 >
-                                    <span className="flex items-center"><Search className="w-4 h-4 mr-2" /> Search</span>
+                                    <span className="flex items-center"><Search className="w-4 h-4 me-2" /> {dict.layout.search}</span>
                                     <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-xs bg-gray-200 dark:bg-gray-700 rounded shadow-sm">Cmd+K</kbd>
                                 </button>
                             </div>
@@ -244,7 +248,7 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                                                 <div className="flex items-center gap-2">
                                                     <FolderOpen className="w-4 h-4 text-yellow-500 dark:text-yellow-400" />
                                                     <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider group-hover:text-gray-900 dark:group-hover:text-gray-200">
-              {category.title}
+              {localizeCategory(dict.categories, category.title)}
             </span>
                                                 </div>
                                                 <ChevronDown
@@ -274,7 +278,7 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                                                                         className="flex items-center justify-between w-full text-left px-2 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                                                                     >
                       <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        {subGroup.title}
+                        {localizeCategory(dict.categories, subGroup.title)}
                       </span>
                                                                         <ChevronDown
                                                                             className={`w-3 h-3 text-gray-400 transition-transform duration-300 ${
@@ -310,7 +314,7 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                                                                                                 }`}
                                                                                             >
                                                                                                 {renderIcon(Icon, `w-4 h-4 mr-3 ${isActive ? 'text-blue-700 dark:text-blue-400' : 'text-gray-400'}`)}
-                                                                                                {item.title}
+                                                                                                {localizeTool(item, dict.tools).title}
                                                                                             </Link>
                                                                                         );
                                                                                     })}
@@ -347,5 +351,6 @@ export default function AppLayout({ children, locale }: { children: React.ReactN
                 </main>
             </div>
         </div>
+        </I18nProvider>
     );
 }

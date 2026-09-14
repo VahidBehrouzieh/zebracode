@@ -43,7 +43,7 @@ export default async function FaRootLayout({ children }: { children: React.React
       <body className="font-sans antialiased">
         <Providers>
           {/* ارسال دیکشنری layout به AppLayout */}
-          <AppLayout locale="fa" dict={dict.layout}>
+          <AppLayout locale="fa" dict={dict}>
             {children}
           </AppLayout>
         </Providers>

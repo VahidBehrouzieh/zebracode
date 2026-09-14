@@ -5,5 +5,5 @@ export default async function FaHomePage() {
   const dict = await getDictionary('fa');
   
   // ارسال بخش home از دیکشنری به کلاینت کامپوننت
-  return <HomePageClient dict={dict.home} locale="fa" />;
+  return <HomePageClient dict={dict} locale="fa" />;
 }

@@ -8,6 +8,8 @@ import { AllToolsList } from '@/lib/registry/tools';
 import { ToolMeta } from '@/types/types';
 import renderIcon from '@/components/layout/renderIcon';
 import { BASE_URL } from "@/lib/env";
+import type { Dictionary } from '@/i18n/getDictionary';
+import { localizeCategory, localizeTool } from '@/i18n/localize';
 
 // ---------- تایپ‌های جدید ----------
 interface GroupedSubCategory {
@@ -22,15 +24,7 @@ interface GroupedCategory {
 
 // پراپ‌های دیکشنری برای صفحه اصلی
 export interface HomePageClientProps {
-    dict: {
-        heroTitle: string;
-        heroSubtitle: string;
-        heroDescription: string;
-        searchPlaceholder: string;
-        allCategories: string;
-        noToolsFound: string;
-        openTool: string;
-    };
+    dict: Dictionary;
     locale: 'fa' | 'en';
 }
 
@@ -39,8 +33,8 @@ const getGroupedTools = (tools: ToolMeta[]): GroupedCategory[] => {
     const groups: Record<string, Record<string, ToolMeta[]>> = {};
 
     tools.forEach(tool => {
-        const cat = (tool.category || 'other').toUpperCase();
-        const sub = (tool.subCategory || 'general').toUpperCase();
+        const cat = tool.category || 'other';
+        const sub = tool.subCategory || 'general';
 
         if (!groups[cat]) groups[cat] = {};
         if (!groups[cat][sub]) groups[cat][sub] = [];
@@ -57,6 +51,7 @@ const getGroupedTools = (tools: ToolMeta[]): GroupedCategory[] => {
 };
 
 export default function HomePageClient({ dict, locale }: HomePageClientProps) {
+    const home = dict.home;
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [searchTerm, setSearchTerm] = useState('');
     const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -97,11 +92,11 @@ export default function HomePageClient({ dict, locale }: HomePageClientProps) {
                     <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-3">
                         <Terminal size={36} className="text-blue-600 dark:text-blue-400"/>
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-                            {dict.heroTitle}
+                            {home.heroTitle}
                         </span>
                     </h1>
                     <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                        {dict.heroDescription}
+                        {home.heroDescription}
                     </p>
                 </div>
             </section>
@@ -115,7 +110,7 @@ export default function HomePageClient({ dict, locale }: HomePageClientProps) {
                             <Search className="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400" size={20}/>
                             <input
                                 type="text"
-                                placeholder={dict.searchPlaceholder}
+                                placeholder={home.searchPlaceholder}
                                 value={searchTerm}
                                 onChange={e => setSearchTerm(e.target.value)}
                                 // تغییر pl-10 و pr-4 به ps-10 و pe-10
@@ -157,7 +152,7 @@ export default function HomePageClient({ dict, locale }: HomePageClientProps) {
                                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                             }`}
                         >
-                            {dict.allCategories}
+                            {home.allCategories}
                         </button>
                         {categories.map(cat => (
                             <button
@@ -169,7 +164,7 @@ export default function HomePageClient({ dict, locale }: HomePageClientProps) {
                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                 }`}
                             >
-                                {cat}
+                                {localizeCategory(dict.categories, cat)}
                             </button>
                         ))}
                     </div>

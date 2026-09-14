@@ -1,16 +1,9 @@
 {
-  "home": {
-    "heroTitle": "ZebraCode",
-    "heroSubtitle": "جعبه ابزار توسعه‌دهندگان",
-    "heroDescription": "ابزارهای رایگان آنلاین برنامه‌نویسی - تبدیل، قالب‌بندی و تغییر داده‌ها در یک چشم به هم زدن.",
-    "searchPlaceholder": "جستجوی ابزارها...",
-    "allCategories": "همه موارد",
-    "noToolsFound": "هیچ ابزاری یافت نشد برای",
-    "openTool": "باز کردن ابزار"
-  },
-  "navigation": {
-    "home": "Home",
-    "about": "About Us",
-    "tools": "Tools"
-  }
+  "heroTitle": "ZebraCode",
+  "heroSubtitle": "Developer toolbox",
+  "heroDescription": "Free online developer tools — convert, format, and transform data in a flash.",
+  "searchPlaceholder": "Search tools...",
+  "allCategories": "All",
+  "noToolsFound": "No tools found for",
+  "openTool": "Open tool"
 }

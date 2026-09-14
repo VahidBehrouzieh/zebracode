@@ -41,7 +41,7 @@ export default async function EnRootLayout({ children }: { children: React.React
       </head>
       <body className="font-sans antialiased">
         <Providers>
-          <AppLayout locale="en" dict={dict.layout}>
+          <AppLayout locale="en" dict={dict}>
             {children}
           </AppLayout>
         </Providers>
